@@ -18,9 +18,6 @@ public class SlackApplication implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(SlackApplication.class);
 
-    @Autowired
-    private MessageRepository repository;
-
     public static void main(String[] args) {
         SpringApplication.run(SlackApplication.class, args);
     }
@@ -28,9 +25,5 @@ public class SlackApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.info("App started");
-        repository.save(new Message(1L, "Message 1"));
-        repository.save(new Message(2L, "Message 2"));
-        repository.save(new Message(3L, "Message 3"));
-        repository.save(new Message(4L, "Message 4"));
     }
 }
