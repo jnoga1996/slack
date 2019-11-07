@@ -2,9 +2,7 @@ package com.slack.slack.controllers;
 
 import com.slack.slack.dao.models.User;
 import com.slack.slack.dao.repositories.UserRepository;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

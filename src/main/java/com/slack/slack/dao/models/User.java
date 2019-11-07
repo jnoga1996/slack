@@ -1,9 +1,11 @@
 package com.slack.slack.dao.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS")
@@ -27,6 +29,10 @@ public class User {
 
     @Range(min = 0, max = 7)
     private int semester;
+
+    @ManyToMany(mappedBy = "users")
+    @JsonBackReference
+    private List<Course> courses;
 
     public User() {}
 
@@ -93,5 +99,13 @@ public class User {
 
     public void setSemester(int semester) {
         this.semester = semester;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 }
