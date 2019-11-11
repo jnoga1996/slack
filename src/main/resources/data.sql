@@ -24,3 +24,9 @@ INSERT INTO COURSE_USER (courses_id, users_id) VALUES (3, 2);
 INSERT INTO COURSE_USER (courses_id, users_id) VALUES (4, 2);
 INSERT INTO COURSE_USER (courses_id, users_id) VALUES (1, 3);
 INSERT INTO COURSE_USER (courses_id, users_id) VALUES (2, 3);
+--Activity
+INSERT INTO ACTIVITIES (id, type, course_id) VALUES (1, 'LECTURE', 1);
+INSERT INTO ACTIVITIES (id, type, course_id) VALUES (2, 'SEMINAR', 1);
+INSERT INTO ACTIVITIES (id, type, course_id) VALUES (3, 'COMPUTER_LAB', 1);
+INSERT INTO ACTIVITIES (id, type, course_id) VALUES (4, 'LECTURE', 2);
+INSERT INTO ACTIVITIES (id, type, course_id) VALUES (5, 'SEMINAR', 3);

@@ -1,10 +1,12 @@
 package com.slack.slack.dao.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -32,6 +34,10 @@ public class Course {
     )
     @JsonManagedReference
     private List<User> users;
+
+    @OneToMany(mappedBy = "course")
+    @JsonManagedReference
+    private List<Activity> activities;
 
     public Course() {}
 
@@ -81,5 +87,13 @@ public class Course {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
     }
 }
