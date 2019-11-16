@@ -2,21 +2,25 @@ package com.slack.slack.controllers;
 
 import com.slack.slack.dao.models.User;
 import com.slack.slack.dao.repositories.UserRepository;
+import com.slack.slack.services.UserAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/Users")
 public class UserController {
 
     private UserRepository userRepository;
+    private UserAuthenticationService userAuthenticationService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, UserAuthenticationService userAuthenticationService) {
         this.userRepository = userRepository;
+        this.userAuthenticationService = userAuthenticationService;
     }
 
     @GetMapping("/Users")
@@ -24,14 +28,36 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/User/{id}")
-    public User getUser(@PathVariable("id") Long id) {
-        User user = userRepository.getOne(id);
+    @GetMapping("/User")
+    public User getUser(@RequestParam Map<String, String> params) {
+        if (!params.containsKey("login") || !params.containsKey("password")) {
+            throw new IllegalStateException("Incorrect request, should contain login and password!");
+        }
+
+        String login = params.get("login");
+        String password = params.get("password");
+        User user = userRepository.getUserByLogin(login);
         if (user == null) {
             throw new IllegalStateException("User not found");
         }
 
+        if (!userAuthenticationService.isAuthenticated(login, password)) {
+            throw new IllegalStateException("Couldn't authenticate!");
+        }
+
         return user;
+    }
+
+    @GetMapping("/Authenticate")
+    public boolean getAuthenticated(@RequestParam Map<String, String> params) {
+        if (!params.containsKey("login") || !params.containsKey("password")) {
+            throw new IllegalStateException("Incorrect request, should contain login and password!");
+        }
+
+        String login = params.get("login");
+        String password = params.get("password");
+
+        return userAuthenticationService.isAuthenticated(login, password);
     }
 
     @PostMapping("/User")

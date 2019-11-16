@@ -1,6 +1,7 @@
 package com.slack.slack.dao.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
@@ -108,4 +109,5 @@ public class User {
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
+
 }
