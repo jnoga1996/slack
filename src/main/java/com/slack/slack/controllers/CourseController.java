@@ -4,10 +4,8 @@ import com.slack.slack.dao.models.Course;
 import com.slack.slack.dao.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -27,25 +25,20 @@ public class CourseController {
     }
 
     @GetMapping("/Courses/{id}")
-    public ResponseEntity<Course> get(@PathVariable("id") Long id) {
+    public Course get(@PathVariable("id") Long id) {
         Course course = courseRepository.getOne(id);
         if (course == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NullPointerException("Course not found!");
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return course;
     }
 
-    @PostMapping("/Courses")
-    public HttpStatus create(Course course) {
+    @PostMapping(value = "/Courses", consumes = "application/json")
+    @ResponseBody
+    public HttpStatus create(@RequestBody Course course) {
         if (course == null) {
-            return HttpStatus.NOT_FOUND;
-        }
-        if (course.getStartDate() == null) {
-            course.setStartDate(LocalDate.now());
-        }
-        if (course.getEndDate() == null) {
-            course.setEndDate(LocalDate.now().plusWeeks(15));
+            throw new NullPointerException("Course is null!");
         }
         courseRepository.save(course);
 

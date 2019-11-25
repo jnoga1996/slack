@@ -1,13 +1,13 @@
 package com.slack.slack.dao.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.springframework.boot.context.properties.bind.DefaultValue;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "COURSES")
@@ -32,12 +32,19 @@ public class Course {
             joinColumns = @JoinColumn(name = "COURSES.id"),
             inverseJoinColumns = @JoinColumn(name = "USERS.id")
     )
-    @JsonManagedReference
+    @JsonIdentityInfo(
+            scope = Course.class,
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id"
+    )
     private List<User> users;
 
     @OneToMany(mappedBy = "course")
-    @JsonManagedReference
-    private List<Activity> activities;
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id"
+    )
+    private Set<Activity> activities;
 
     public Course() {}
 
@@ -89,11 +96,11 @@ public class Course {
         this.users = users;
     }
 
-    public List<Activity> getActivities() {
+    public Set<Activity> getActivities() {
         return activities;
     }
 
-    public void setActivities(List<Activity> activities) {
+    public void setActivities(Set<Activity> activities) {
         this.activities = activities;
     }
 }
