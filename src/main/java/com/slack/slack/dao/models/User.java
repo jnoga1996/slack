@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Range;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "USERS")
@@ -31,6 +32,10 @@ public class User {
     @Range(min = 0, max = 7)
     private int semester;
 
+    //Jacek nie polecam uzywania many to many
+    //bo gdy pojdzie request do repo o pobranie usera, to od razu pobierze wszystkie cursy do ktorych jest przypisany user i wychodzi jeden wielki kloc
+    //bo np. masz w bazie 160 kursow w ciagu roku.
+    //Lepiej ustawic id usera i np. date jako pola kursu i potem w repository kursu robisz findByUserIdAndDate() i zwraca Ci pare elementów.
     @ManyToMany(mappedBy = "users")
     @JsonBackReference
     private List<Course> courses;
