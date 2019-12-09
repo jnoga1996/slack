@@ -24,8 +24,10 @@ public class Activity {
     )
     private Course course;
 
-    public Activity() {
-    }
+    @OneToOne
+    private TimePlan timePlan;
+//    public Activity() {
+//    }
 
     public Long getId() {
         return id;
