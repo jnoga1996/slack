@@ -1,6 +1,7 @@
 package com.slack.slack.dao.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 
@@ -16,7 +17,11 @@ public class Activity {
 
     @ManyToOne
     @JoinColumn(name = "course_id")
-    @JsonBackReference
+    @JsonIdentityInfo(
+            scope = Activity.class,
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id"
+    )
     private Course course;
 
     public Activity() {

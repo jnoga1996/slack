@@ -1,6 +1,8 @@
 package com.slack.slack.dao.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.hibernate.validator.constraints.Range;
 
@@ -37,7 +39,11 @@ public class User {
     //bo np. masz w bazie 160 kursow w ciagu roku.
     //Lepiej ustawic id usera i np. date jako pola kursu i potem w repository kursu robisz findByUserIdAndDate() i zwraca Ci pare elementów.
     @ManyToMany(mappedBy = "users")
-    @JsonBackReference
+    @JsonIdentityInfo(
+            scope = User.class,
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id"
+    )
     private List<Course> courses;
 
     public User() {}
