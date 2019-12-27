@@ -13,13 +13,13 @@ public class TimePlanController {
 
     private TimePlanRepository timePlanRepository;
 
-    @GetMapping(name = "/Activity")
+    @GetMapping("/Activity")
     public TimePlan getTimePlanByActivity(
             @RequestBody Activity activity) {
         return timePlanRepository.findAllByActivity(activity)
                 .orElseThrow(() -> new  IllegalArgumentException("No Time Plan for activity:" + activity));
     }
-    @GetMapping(name = "/{id}")
+    @GetMapping("/{id}")
     public TimePlan getTimePlan(@PathVariable("id") Long id){
         return timePlanRepository.findByTimePlanId(id)
                 .orElseThrow(() -> new IllegalArgumentException("No Time Plan with id:" + id));
@@ -28,7 +28,7 @@ public class TimePlanController {
     public void addTimePlan(@RequestBody TimePlan timePlan){
         timePlanRepository.save(timePlan);
     }
-    @DeleteMapping(name = "/{id}")
+    @DeleteMapping("/{id}")
     public void deleteTimePlan (@PathVariable("id") Long id) {
         TimePlan timePlan = timePlanRepository.findByTimePlanId(id)
                 .orElseThrow(() -> new IllegalArgumentException("No Time Plan with id:" + id));

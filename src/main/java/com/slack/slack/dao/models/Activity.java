@@ -26,8 +26,8 @@ public class Activity {
 
     @OneToOne
     private TimePlan timePlan;
-//    public Activity() {
-//    }
+    public Activity() {
+    }
 
     public Long getId() {
         return id;
