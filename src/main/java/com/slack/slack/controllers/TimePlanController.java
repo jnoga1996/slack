@@ -13,7 +13,7 @@ public class TimePlanController {
 
     private TimePlanRepository timePlanRepository;
 
-    @GetMapping("/Activity")
+    @GetMapping("/")
     public TimePlan getTimePlanByActivity(
             @RequestBody Activity activity) {
         return timePlanRepository.findAllByActivity(activity)

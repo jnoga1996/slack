@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("Courses")
+@RequestMapping("/Courses")
 public class CourseController {
 
     private CourseRepository courseRepository;
@@ -19,12 +19,12 @@ public class CourseController {
         this.courseRepository = courseRepository;
     }
 
-    @GetMapping("/Courses")
+    @GetMapping("/")
     public List<Course> getAll() {
         return courseRepository.findAll();
     }
 
-    @GetMapping("/Courses/{id}")
+    @GetMapping("/{id}")
     public Course get(@PathVariable("id") Long id) {
         Course course = courseRepository.getOne(id);
         if (course == null) {
@@ -34,7 +34,7 @@ public class CourseController {
         return course;
     }
 
-    @PostMapping(value = "/Courses", consumes = "application/json")
+    @PostMapping(value = "/", consumes = "application/json")
     @ResponseBody
     public HttpStatus create(@RequestBody Course course) {
         if (course == null) {
@@ -45,7 +45,7 @@ public class CourseController {
         return HttpStatus.OK;
     }
 
-    @DeleteMapping("/Courses/{id}")
+    @DeleteMapping("/{id}")
     public HttpStatus delete(@PathVariable("id") Long id) {
         Course course = courseRepository.getOne(id);
         if (course != null) {

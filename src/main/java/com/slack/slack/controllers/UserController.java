@@ -23,12 +23,12 @@ public class UserController {
         this.userAuthenticationService = userAuthenticationService;
     }
 
-    @GetMapping("/Users")
+    @GetMapping("/All")
     public List<User> getAll() {
         return userRepository.findAll();
     }
 
-    @GetMapping("/User")
+    @GetMapping("/")
     public User getUser(@RequestParam Map<String, String> params) {
         if (!params.containsKey("login") || !params.containsKey("password")) {
             throw new IllegalStateException("Incorrect request, should contain login and password!");
@@ -60,7 +60,7 @@ public class UserController {
         return userAuthenticationService.isAuthenticated(login, password);
     }
 
-    @PostMapping("/User")
+    @PostMapping("/")
     public HttpStatus createUser(String login, String password, String faculty, String major, int semester) {
         User user = new User(login, password, faculty, major, semester);
         userRepository.save(user);
@@ -68,7 +68,7 @@ public class UserController {
         return HttpStatus.OK;
     }
 
-    @DeleteMapping("User/{id}")
+    @DeleteMapping("/{id}")
     public HttpStatus deleteUser(@PathVariable("id") Long id) {
         User user = userRepository.getOne(id);
         if (user == null) {

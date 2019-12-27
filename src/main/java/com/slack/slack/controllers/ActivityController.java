@@ -20,12 +20,12 @@ public class ActivityController {
         this.activityRepository = activityRepository;
     }
 
-    @GetMapping("/Activities")
+    @GetMapping("/")
     public List<Activity> getAll() {
         return activityRepository.findAll();
     }
 
-    @GetMapping("/Activities/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Activity> get(@PathVariable("id") Long id) {
         Activity activity = activityRepository.getOne(id);
         if (activity == null) {
@@ -35,7 +35,7 @@ public class ActivityController {
         return new ResponseEntity<>(activity, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/Activities", consumes = "application/json")
+    @PutMapping(value = "/", consumes = "application/json")
     public ResponseEntity<Activity> create(@RequestBody Activity activity) {
         if (activity == null) {
             throw new NullPointerException("Activity is null!");
@@ -46,7 +46,7 @@ public class ActivityController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/Activities/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Activity> delete(@PathVariable("id") Long id) {
         Activity activity = activityRepository.getOne(id);
         if (activity != null) {

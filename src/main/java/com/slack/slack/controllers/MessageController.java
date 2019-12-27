@@ -9,23 +9,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/Message")
+@RequestMapping("/Messages")
 public class MessageController {
 
     @Autowired
     private MessageRepository repository;
 
-    @GetMapping("/Messages")
+    @GetMapping("/")
     public List<Message> getAll() {
         return repository.findAll();
     }
 
-    @GetMapping("/Messages/{id}")
+    @GetMapping("/{id}")
     public Message get(@PathVariable("id") Long id) {
         return repository.getOne(id);
     }
 
-    @PostMapping("/Messages")
+    @PostMapping("/")
     public HttpStatus create(String content) {
         Message message = new Message(content);
         repository.save(message);
@@ -33,7 +33,7 @@ public class MessageController {
         return HttpStatus.OK;
     }
 
-    @DeleteMapping("/Messages/{id}")
+    @DeleteMapping("/{id}")
     public HttpStatus delete(@PathVariable("id") Long id) {
         Message message = repository.getOne(id);
         if (message != null) {
