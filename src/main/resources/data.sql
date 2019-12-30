@@ -30,3 +30,9 @@ INSERT INTO ACTIVITIES (id, type, course_id) VALUES (2, 'SEMINAR', 1);
 INSERT INTO ACTIVITIES (id, type, course_id) VALUES (3, 'COMPUTER_LAB', 1);
 INSERT INTO ACTIVITIES (id, type, course_id) VALUES (4, 'LECTURE', 2);
 INSERT INTO ACTIVITIES (id, type, course_id) VALUES (5, 'SEMINAR', 3);
+--Attendance list
+--INSERT INTO ATTENDANCE_LIST (id) values (1);
+--Attendance
+--INSERT INTO ATTENDANCE (id, user_id, date_time, is_present, attendance_list_id) VALUES (1, 1, current_date, true, 1);
+--INSERT INTO ATTENDANCE (id, user_id, date_time, is_present, attendance_list_id) VALUES (2, 1, current_date+1, true, 1);
+--INSERT INTO ATTENDANCE (id, user_id, date_time, is_present, attendance_list_id) VALUES (3, 1, current_date+2, true, 1);
