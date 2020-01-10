@@ -1,6 +1,7 @@
 package com.slack.slack.dao.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -39,6 +40,7 @@ public class Course {
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id"
     )
+    @JsonIgnore
     private List<User> users;
 
     @OneToMany(mappedBy = "course")
@@ -46,6 +48,7 @@ public class Course {
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id"
     )
+    @JsonIgnore
     private Set<Activity> activities;
 
     public Course() {}

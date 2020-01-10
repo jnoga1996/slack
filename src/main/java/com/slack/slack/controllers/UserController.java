@@ -2,11 +2,13 @@ package com.slack.slack.controllers;
 
 import com.slack.slack.dao.models.User;
 import com.slack.slack.dao.repositories.UserRepository;
+import com.slack.slack.dto.UserDTO;
 import com.slack.slack.services.UserAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,8 +30,19 @@ public class UserController {
         return userRepository.findAll();
     }
 
+    @GetMapping("/All2")
+    public List<UserDTO> getAllDTOs() {
+        List<User> users = userRepository.findAll();
+        List<UserDTO> transformedUsers = new ArrayList<>();
+        for (User user : users) {
+            UserDTO userDTO = new UserDTO(user);
+            transformedUsers.add(userDTO);
+        }
+        return transformedUsers;
+    }
+
     @GetMapping("/")
-    public User getUser(@RequestParam Map<String, String> params) {
+    public UserDTO getUser(@RequestParam Map<String, String> params) {
         if (!params.containsKey("login") || !params.containsKey("password")) {
             throw new IllegalStateException("Incorrect request, should contain login and password!");
         }
@@ -45,7 +58,9 @@ public class UserController {
             throw new IllegalStateException("Couldn't authenticate!");
         }
 
-        return user;
+        UserDTO userDTO = new UserDTO(user);
+
+        return userDTO;
     }
 
     @GetMapping("/Authenticate")

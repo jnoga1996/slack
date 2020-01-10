@@ -2,10 +2,12 @@ package com.slack.slack.controllers;
 
 import com.slack.slack.dao.models.Course;
 import com.slack.slack.dao.repositories.CourseRepository;
+import com.slack.slack.dto.CourseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,18 +22,25 @@ public class CourseController {
     }
 
     @GetMapping("/")
-    public List<Course> getAll() {
-        return courseRepository.findAll();
+    public List<CourseDTO> getAll() {
+        List<Course> courses = courseRepository.findAll();
+        List<CourseDTO> courseDTOS = new ArrayList<>();
+        for (Course course : courses) {
+            CourseDTO courseDTO = new CourseDTO(course);
+            courseDTOS.add(courseDTO);
+        }
+        return courseDTOS;
     }
 
     @GetMapping("/{id}")
-    public Course get(@PathVariable("id") Long id) {
+    public CourseDTO get(@PathVariable("id") Long id) {
         Course course = courseRepository.getOne(id);
         if (course == null) {
             throw new NullPointerException("Course not found!");
         }
 
-        return course;
+        CourseDTO courseDTO = new CourseDTO(course);
+        return courseDTO;
     }
 
     @PostMapping(value = "/", consumes = "application/json")
