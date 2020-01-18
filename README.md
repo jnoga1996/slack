@@ -21,6 +21,8 @@ Get:
 - /Activity/{id} - Activity - returns activity with specified id from db.
 - /TimePlan/?activity=<activity> - TimePlan - returns time plan by specified activity.
 - /TimePlan/{id} - TimePlan - returns time plan with specified id from db.
+- /Files/ - List<String> - returns all available files.
+- /Files/{id} - String - returns all available files for course with specified id.
 
 Post:
 - /Attendance/ - please take a look at comment in AttendanceController class to see how to send post request.
@@ -28,6 +30,8 @@ Post:
 - /Courses/ - HttpStatus Ok - adds new course to db.
 - /Activity/ - HttpStatus Ok - adds new activity to db.
 - /TimePlan/ - HttpStatus Ok - adds new time plan to db.
+- /Files/?file=<file> - HttpStatus Ok - upload file to server.
+- /Files/?file=<file>&id=<course_id> - HttpStatus Ok - uploads file related to specified course to server.
 
 Delete:
 - /Attendance/{id} - HttpStatus Ok or Not found - removes entry from db.
@@ -35,7 +39,9 @@ Delete:
 - /Courses/{id} - HttpStatus Ok or Not found - removes entry from db.
 - /Activity/{id} - HttpStatus Ok or Not found - removes entry from db.
 - /TimePlan/{id} - HttpStatus Ok or Not found - removes entry from db.
+- /Delete/{filename} - HttpStatus Ok or Not found - removes file from server. When specifying filename - file extension should be omitted.
 
+Name of files saved to server looks like this <course_id>.<filename> for example 33.abcd.txt
 
 Post request examples:
 ```
