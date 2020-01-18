@@ -31,7 +31,7 @@ Post:
 - /Activity/ - HttpStatus Ok - adds new activity to db.
 - /TimePlan/ - HttpStatus Ok - adds new time plan to db.
 - /Files/?file=<file> - HttpStatus Ok - upload file to server.
-- /Files/?file=<file>&id=<course_id> - HttpStatus Ok - uploads file related to specified course to server.
+- /Files/{course_id}/?file=<file> - HttpStatus Ok - uploads file related to specified course to server.
 
 Delete:
 - /Attendance/{id} - HttpStatus Ok or Not found - removes entry from db.
