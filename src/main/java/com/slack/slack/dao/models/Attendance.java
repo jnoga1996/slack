@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Table(name = "ATTENDANCE")
 public class Attendance {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
@@ -19,6 +19,8 @@ public class Attendance {
     private LocalDate dateTime;
 
     private Boolean isPresent;
+
+    private Boolean wantsToBeSigned;
 
     @ManyToOne
     @JoinColumn(name = "attendance_list_id")
@@ -69,5 +71,13 @@ public class Attendance {
 
     public void setAttendanceList(AttendanceList attendanceList) {
         this.attendanceList = attendanceList;
+    }
+
+    public Boolean getWantsToBeSigned() {
+        return wantsToBeSigned;
+    }
+
+    public void setWantsToBeSigned(Boolean wantsToBeSigned) {
+        this.wantsToBeSigned = wantsToBeSigned;
     }
 }

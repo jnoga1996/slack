@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "ATTENDANCE_LIST")
 public class AttendanceList {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(mappedBy = "attendanceList")
@@ -20,6 +20,8 @@ public class AttendanceList {
             property = "id"
     )
     private List<Attendance> attendances;
+
+    private Long courseId;
 
     public AttendanceList() {}
 
@@ -37,5 +39,13 @@ public class AttendanceList {
 
     public void setAttendances(List<Attendance> attendances) {
         this.attendances = attendances;
+    }
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
     }
 }

@@ -49,7 +49,7 @@ Course
 content-type : application/json
 body : 
 {
-		    "id" : 3,
+	"id" : 3,
         "name": "TEST2",
         "description": "TEST",
         "startDate": "2019-11-18",
@@ -76,12 +76,28 @@ body :
         ]
     }
     
-Attendance
+Attendance - POST
 content-type : application/json
-body : 
+body :
+ {
+	    "dateString":"2020-02-02",
+	    "presentUsers":{"1":{"firstValue" : true, "secondValue":false},"2":{"firstValue" : true, "secondValue":false}
+	    	,"3":{"firstValue" : false, "secondValue":false} },
+	    "courseId" : 1
+}
+
+Attendance - GET
+localhost:8080/Attendance/Dates?courseId=1
+
+Attendance - PUT
+content-type : application/json
+body :
 {
-	"dateString":"2019-12-31",
-	"presentUsers":{"1":true,"2":true,"3":true}
+	    "dateString":"2020-02-02",
+	    "presentUsers":{"1":{"firstValue" : false, "secondValue":false},"2":{"firstValue" : true, "secondValue":false}
+	    	,"3":{"firstValue" : false, "secondValue":false} },
+	    "courseId" : 2,
+	    "attendanceListId" : 1
 }
 ```
 
